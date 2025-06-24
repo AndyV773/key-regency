@@ -228,7 +228,6 @@ footer a {
   color: var(--secondary-text);
   text-align: center;
   background-image: url("../images/img01.jpg");
-  background-attachment: fixed;
   background-position: top right;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -365,6 +364,10 @@ footer a {
   #menu>li {
     padding-left: 2rem;
     border-bottom: 1px solid;
+  }
+
+  #hero {
+    background-attachment: fixed;
   }
 
   footer {
