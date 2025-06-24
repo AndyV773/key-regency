@@ -1,18 +1,18 @@
 let slideIndex = 0;
+let loadedImages = 0;
 let hero = document.getElementById("hero");
 let timeoutId;
+let lastY = window.scrollY;
 
-// Array of background images
-const backgroundImages = [
-    "url('assets/images/img01.jpg')",
-    "url('assets/images/img02.jpg')",
-    "url('assets/images/img03.jpg')"
+
+const imageUrls = [
+  "assets/images/img01.jpg",
+  "assets/images/img02.jpg",
+  "assets/images/img03.jpg"
 ];
 
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlideShow(slideIndex = n);
-}
+
+const backgroundImages = imageUrls.map(url => `url('${url}')`);
 
 
 function showSlideShow(n) {
@@ -22,8 +22,8 @@ function showSlideShow(n) {
         slideIndex = n; // set to clicked dot
     } else {
         slideIndex++;
-        if (slideIndex > backgroundImages.length) {
-            slideIndex = 1;
+        if (slideIndex >= backgroundImages.length) {
+            slideIndex = 0;
         }
     }
 
@@ -33,8 +33,8 @@ function showSlideShow(n) {
     }
 
     // Set background image and active dot
-    hero.style.backgroundImage = backgroundImages[slideIndex - 1];
-    dots[slideIndex - 1].className += " active-dot";
+    hero.style.backgroundImage = backgroundImages[slideIndex];
+    dots[slideIndex].className += " active-dot";
 
     // Clear previous timeout to avoid overlap when manually changing slide
     if (timeoutId) {
@@ -45,24 +45,40 @@ function showSlideShow(n) {
     timeoutId = setTimeout(showSlideShow, 3000);
 }
 
+
 const observer = new IntersectionObserver(
     (entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("visible");
+            } else {
+                entry.target.classList.remove("visible");
             }
         });
     },
     {
       root: null,
-      rootMargin: "0px 0px -40% 0px",
+      rootMargin: "0px 0px -30% 0px",
       threshold: 0.01,
     }
 );
 
+
 document.querySelectorAll(".tick-icon").forEach((icon) => {
 observer.observe(icon);
 });
+
+window.addEventListener("scroll", function () {
+    const header = document.querySelector("header");
+    if (window.innerWidth < 768) {
+        if (window.scrollY > 10) {
+        header.classList.add("scrolled");
+        } else {
+        header.classList.remove("scrolled");
+        }
+    }
+});
+
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -71,13 +87,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
    
     if (hero) {
-        showSlideShow();
+        imageUrls.forEach((src) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = () => {
+                loadedImages++;
+                if (loadedImages === imageUrls.length) {
+                showSlideShow();
+                }
+            };
+        });
         
         // Add click handlers for dots
         let dots = document.getElementsByClassName("dot");
         for (let i = 0; i < dots.length; i++) {
             dots[i].addEventListener("click", function () {
-                showSlideShow(i + 1);
+                showSlideShow(i);
             });
         }
     }

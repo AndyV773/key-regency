@@ -9,13 +9,14 @@
 }
 
 :root {
-  --primary-bg: #f0f0f0;
+  --primary-bg: #ccc;
   --secondary-bg: #666;
   --tertiary-bg: #444;
   --quaternary-bg: #fafafa;
   --primary-text: #222;
   --secondary-text: rgba(255, 255, 255, 0.3);
   --tertiary-text: #CFB53B;
+  --quaternary-text: #fafafa;
   --anchor:  rgba(156, 173, 70, 0.9);
   --primary-nav: #666;
   --secondary-nav: #666;
@@ -38,11 +39,12 @@ body {
   font-size: 120%;
   width: 100%;
   max-width: 100%;
+  min-height: 100vh;
   margin: 0;
 }
 
 header {
-  background: var(--primary-nav);
+  background: none;
   color: var(--primary-text);
   display: flex;
   justify-content: space-between;
@@ -53,9 +55,12 @@ header {
   padding: 10px;
 }
 
+header.scrolled {
+  background: var(--primary-nav);
+}
+
 main {
   flex: 1 0 auto;
-  margin: 70px 0;
 }
 
 .sr-only {
@@ -78,7 +83,7 @@ main {
 .button {
     text-decoration: none;
     background: rgba(255, 255, 255, 0.5);
-    border: 1px solid #fafafa;
+    border: 1px solid var(--quaternary-text);
     color: var(--primary-text);
     border-radius: 5px;
     padding: 5px 8px;
@@ -113,19 +118,24 @@ nav {
   right: 0;
 }
 
+nav ul {
+    list-style-type: none;
+}
+
 #menu {
-  font-size: 120%;
+  font-size: 100%;
   letter-spacing: 4px;
-  list-style-type: none;
+  padding: 0 40px;
 }
 
 #menu>li {
   margin-top: 1em;
   margin-bottom: 1em;
+  border-bottom: 1px solid var(--quaternary-text);
 }
 
 #menu li a {
-  color: var(--primary-text);
+  color: var(--quaternary-text);
   text-decoration: none;
 }
 
@@ -139,6 +149,12 @@ nav {
 
 .nav-toggle-label {
   font-size: 2rem;
+  color: var(--quaternary-text);
+}
+
+.tell {
+    text-decoration: none;
+    color: var(--quaternary-text);
 }
 
 .active {
@@ -183,6 +199,7 @@ nav {
     font-size: 0.5em;
     margin: 0;
     padding: 5px 0 0 5px;
+    color: var(--quaternary-text);
 }
 
 /* ----------------------------------------- list */
@@ -246,7 +263,7 @@ footer a {
 
 #hero h2 {
     margin: 1em 0.3em;
-    color: #fafafa;
+    color: var(--quaternary-text);
     text-decoration: underline;
     text-shadow: -1px -1px 0 var(--secondary-bg), 1px -1px 0 var(--secondary-bg), -1px  1px 0 var(--secondary-bg), 1px  1px 0 var(--secondary-bg);
 }
@@ -280,7 +297,7 @@ footer a {
     text-align: center;
     padding: 5px;
     border: 1px groove var(--secondary-bg);
-    margin: 10px;
+    margin: 1rem;
     box-shadow: inset 0 0 6px var(--primary-text);
 }
 
@@ -290,6 +307,10 @@ footer a {
 
 #intro .b-2 {
     padding: 5px;
+}
+
+#intro .b-2 .w-bg {
+    padding: 2rem;
 }
 
 /* ----------------------------------------- service grid */
@@ -304,6 +325,7 @@ footer a {
   position: relative;
   padding: 1.5rem;
   border: 1px solid #bbb;
+  box-shadow: inset 0 0 6px var(--primary-text);
   background: var(--quaternary-bg);
   overflow: hidden;
   border-radius: 5px;
@@ -318,7 +340,7 @@ footer a {
   position: absolute;
   top: 1rem;
   left: 1rem;
-  color: green;
+  color: var(--secondary-bg);
   font-size: 2rem;
   opacity: 0;
   transform: scale(0.3);
@@ -341,15 +363,19 @@ footer a {
   }
 
   header {
+    background: var(--primary-nav);
     justify-content: unset;
     align-items: unset;
     flex-direction: column;
     width: 30%;
     height: 100vh;
+    overflow-y: auto;
   }
 
   nav {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     position: relative;
     background: none;
     width: 100%;
@@ -361,9 +387,9 @@ footer a {
     display: none;
   }
 
-  #menu>li {
-    padding-left: 2rem;
-    border-bottom: 1px solid;
+  #menu {
+    padding: 0 0 0 40px;
+    flex-grow: 1;
   }
 
   #hero {
@@ -400,9 +426,6 @@ footer a {
     padding: 8px 0 0 8px;
   }
 
-  .services-grid {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 /* ----------------------------------------- 1280px */
@@ -419,8 +442,16 @@ footer a {
     width: 80%;
   }
 
+  #intro .b-2 .w-bg {
+    padding: 3rem 10rem;
+  }
+
   .copy-icon:hover {
     color: #fafafa;
+  }
+
+   .services-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
