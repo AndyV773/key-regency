@@ -55,6 +55,10 @@ header {
   padding: 10px;
 }
 
+header.active {
+    background: var(--primary-nav);
+}
+
 header.scrolled {
   background: var(--primary-nav);
 }

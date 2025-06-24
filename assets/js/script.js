@@ -1,18 +1,17 @@
-let slideIndex = 0;
-let loadedImages = 0;
-let hero = document.getElementById("hero");
-let timeoutId;
-let lastY = window.scrollY;
-
-
+const navToggle = document.getElementById("nav-toggle");
+const header = document.querySelector("header");
 const imageUrls = [
   "assets/images/img01.jpg",
   "assets/images/img02.jpg",
   "assets/images/img03.jpg"
 ];
-
-
 const backgroundImages = imageUrls.map(url => `url('${url}')`);
+
+let slideIndex = 0;
+let loadedImages = 0;
+let hero = document.getElementById("hero");
+let timeoutId;
+let lastY = window.scrollY;
 
 
 function showSlideShow(n) {
@@ -68,8 +67,22 @@ document.querySelectorAll(".tick-icon").forEach((icon) => {
 observer.observe(icon);
 });
 
+
+function toggleNav() {
+    header.classList.toggle("active", navToggle.checked);
+}
+
+
+// function toggleNav() {
+//     if (navToggle.checked) {
+//         header.style.backgroundColor = "#666";
+//     } else {
+//         header.style.backgroundColor = "transparent";
+//     }
+// }
+
+
 window.addEventListener("scroll", function () {
-    const header = document.querySelector("header");
     if (window.innerWidth < 768) {
         if (window.scrollY > 10) {
         header.classList.add("scrolled");
@@ -85,7 +98,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // updates the copyright section to the most recent year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-   
+    navToggle.addEventListener("change", toggleNav);
+    toggleNav();
+
     if (hero) {
         imageUrls.forEach((src) => {
             const img = new Image();
