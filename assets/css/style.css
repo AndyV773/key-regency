@@ -9,10 +9,11 @@
 }
 
 :root {
-  --primary-bg: #f5f5f5;
-  --secondary-bg: #012A4A;
+  --primary-bg: #f0f0f0;
+  --secondary-bg: #666;
   --tertiary-bg: #444;
-  --primary-text: #fff;
+  --quaternary-bg: #fafafa;
+  --primary-text: #222;
   --secondary-text: rgba(255, 255, 255, 0.3);
   --tertiary-text: #CFB53B;
   --anchor:  rgba(156, 173, 70, 0.9);
@@ -35,7 +36,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-style: italic;
   font-size: 120%;
-  height: 100vh;
   width: 100%;
   max-width: 100%;
   margin: 0;
@@ -58,17 +58,49 @@ main {
   margin: 70px 0;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
 .wrapper {
     display: flex;
 }
 
 .button {
     text-decoration: none;
+    background: rgba(255, 255, 255, 0.5);
     border: 1px solid #fafafa;
+    color: var(--primary-text);
     border-radius: 5px;
-    color: #000;
     padding: 5px 8px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px var(--secondary-bg), 0 2px 4px var(--secondary-bg);
+}
+
+.centre-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    z-index: 5;
+}
+
+.b-2 {
+    border: inherit;
+    box-shadow: inherit;
+}
+
+.w-bg {
+    background: var(--quaternary-bg);
 }
 
 /* ----------------------------------------- nav */
@@ -138,13 +170,13 @@ nav {
 
 /* Position K (top-right) and R (bottom-left) */
 .logo .first-letter {
-  top: 0;
+  top: -2px;
   left: 2px;
 }
 
 .logo .second-letter {
   bottom: -1px;
-  right: 8px;
+  right: 7px;
 }
 
 .title p {
@@ -165,10 +197,29 @@ footer {
   color: var(--secondary-text);
   width: 100%;
   padding: 1rem;
+  font-size: 80%;
 }
 
 footer ul {
   list-style: none;
+}
+
+footer ul > li {
+    border-left: solid 1px var(--secondary-text);
+    display: inline-block;
+    line-height: 1;
+    margin-left: 1.5em;
+    padding: 0 0 0 1.5em;
+}
+
+footer ul > li:first-child {
+    border-left: 0;
+    margin: 0;
+    padding-left: 0;
+}
+
+footer a {
+    color: var(--secondary-text);
 }
 
 /* ----------------------------------------- hero */
@@ -176,32 +227,29 @@ footer ul {
   position: relative;
   color: var(--secondary-text);
   text-align: center;
-  height: 50%;
-  z-index: 1;
-  background-image: url("../images/img01.jpg");
-  background-attachment: fixed;
-  background-position: top right;
-  background-repeat: no-repeat;
-  background-size: 100% 50%;
-}
-
-/* #hero::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
   background-image: url("../images/img01.jpg");
   background-attachment: fixed;
   background-position: top right;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  opacity: 0.3;
-  z-index: -1;
-} */
+  height: 100vh;
+  z-index: 1;
+}
+
+#hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  pointer-events: none; /* so overlay doesn't block clicks */
+  z-index: 2;
+}
 
 #hero h2 {
-    margin: 0;
-    padding: 6em 0 1em 0;
-    color: #000;
+    margin: 1em 0.3em;
+    color: #fafafa;
+    text-decoration: underline;
+    text-shadow: -1px -1px 0 var(--secondary-bg), 1px -1px 0 var(--secondary-bg), -1px  1px 0 var(--secondary-bg), 1px  1px 0 var(--secondary-bg);
 }
 
 /* The dots/bullets/indicators */
@@ -210,38 +258,103 @@ footer ul {
     left: 50%;
     transform: translateX(-50%);
     bottom: 20px;
+    z-index: 5;
 }
 
 .dot {
     height: 15px;
     width: 15px;
     margin: 0 2px;
-    background-color: #bbb;
+    background: none;
+    border: 1px solid #bbb;
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;
 }
 
 .active-dot {
-    background-color: #717171;
+    background-color: #bbb;
 }
 
 /* ----------------------------------------- intro */
 #intro {
     text-align: center;
-    padding: 30px;
-    color: #000;
+    padding: 5px;
+    border: 1px groove var(--secondary-bg);
+    margin: 10px;
+    box-shadow: inset 0 0 6px var(--primary-text);
+}
+
+#intro p {
+    margin: 20px;
+}
+
+#intro .b-2 {
+    padding: 5px;
+}
+
+/* ----------------------------------------- service grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.service-row {
+  position: relative;
+  padding: 1.5rem;
+  border: 1px solid #bbb;
+  background: var(--quaternary-bg);
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.service-row h3 {
+  margin: 0 0 2rem 2rem;
+  font-weight: 500;
+}
+
+.tick-icon {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: green;
+  font-size: 2rem;
+  opacity: 0;
+  transform: scale(0.3);
+  transition: opacity 1s ease, transform 0.5s ease;
+  opacity: 0;
+}
+
+.tick-icon.visible {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* ----------------------------------------- media queries */
 /* ----------------------------------------- 768px */
 @media (min-width: 768px) {
+  main {
+    margin: 0;
+    width: 70%;
+    align-self: flex-end;
+  }
+
+  header {
+    justify-content: unset;
+    align-items: unset;
+    flex-direction: column;
+    width: 30%;
+    height: 100vh;
+  }
+
   nav {
     display: block;
     position: relative;
     background: none;
-    width: fit-content;
-    right: 7rem;
+    width: 100%;
+    right: 2rem;
     top: 0;
   }
 
@@ -249,19 +362,62 @@ footer ul {
     display: none;
   }
 
-  #menu {
-    display: flex;
-  }
-
   #menu>li {
     padding-left: 2rem;
-    margin: 0;
+    border-bottom: 1px solid;
+  }
+
+  footer {
+    width: 70%;
+    align-self: flex-end;
+  }
+
+  .logo {
+    width: 75px;
+  }
+
+  .logo .first-letter,
+  .logo .second-letter {
+    font-size: 2.5em;
+  }
+
+  /* Position K (top-right) and R (bottom-left) */
+  .logo .first-letter {
+    top: -5px;
+    left: 1px;
+  }
+
+  .logo .second-letter {
+    bottom: -4px;
+    right: 12px;
+  }
+
+  .title p {
+    font-size: 0.8rem;
+    padding: 8px 0 0 8px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
 /* ----------------------------------------- 1280px */
 @media (min-width: 1280px) {
+    main {
+    width: 80%;
+  }
+
+  header {
+    width: 20%;
+  }
+
+  footer {
+    width: 80%;
+  }
+
   .copy-icon:hover {
     color: #fafafa;
   }
 }
+
