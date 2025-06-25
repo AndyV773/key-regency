@@ -79,12 +79,32 @@
             <label for="email"></label>
             <input type="email" id="email" name="email" placeholder="Email*" required />
 
-            <label for="location">Location</label>
-            <select id="location" name="location">
-              <option value="bexley">Bexley</option>
-              <option value="dartford">Dartford</option>
-              <option value="sidcup">Sidcup</option>
-            </select>
+            <div class="dropdown">
+              <p>Location</p>
+              <div onclick="myFunction()" class="dropbtn" id="location" name="location">
+                Bexley
+                <i class="fa-solid fa-caret-down"></i>
+              </div>
+              <div id="myDropdown" class="dropdown-content">
+                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()" />
+                <ul>
+                  <li data-value="bexley">Bexley</li>
+                  <li data-value="dartford">Dartford</li>
+                  <li data-value="crayford">Crayford</li>
+                  <li data-value="sidcup">Sidcup</li>
+                  <li data-value="greenwich">Greenwich</li>
+                  <li data-value="chilsehurst">Chislehurst</li>
+                  <li data-value="bromley">Bromley</li>
+                  <li data-value="keston">Keston</li>
+                  <li data-value="farnbourgh">Farnbourgh</li>
+                  <li data-value="petts-wood">Petts Wood</li>
+                  <li data-value="west-kingsdown">West Kingsdown</li>
+                  <li data-value="erith">Erith</li>
+                  <li data-value="abbywood">Abbywood</li>
+                  <li data-value="woolwich">Woolwich</li>
+                </ul>
+              </div>
+            </div>
 
             <label for="message"></label>
             <textarea

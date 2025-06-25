@@ -7,6 +7,10 @@ const imageUrls = [
 ];
 const backgroundImages = imageUrls.map(url => `url('${url}')`);
 
+const input = document.getElementById("myInput");
+const dropdown = document.getElementById("myDropdown");
+const loc = document.getElementById("location");
+
 let slideIndex = 0;
 let loadedImages = 0;
 let hero = document.getElementById("hero");
@@ -73,13 +77,50 @@ function toggleNav() {
 }
 
 
-// function toggleNav() {
-//     if (navToggle.checked) {
-//         header.style.backgroundColor = "#666";
-//     } else {
-//         header.style.backgroundColor = "transparent";
-//     }
-// }
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    dropdown.classList.toggle("show");
+}
+
+function filterFunction() {
+    let li = dropdown.getElementsByTagName("li");
+    let filter = input.value.toUpperCase();
+    for (let i = 0; i < li.length; i++) {
+        txtValue = li[i].textContent || li[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+        } else {
+        li[i].style.display = "none";
+        }
+    }
+}
+
+if (dropdown) {
+    const listItems = dropdown.getElementsByTagName("li");
+
+    // Set selection
+    for (let li of listItems) {
+        li.addEventListener("click", (e) => {
+            const selectedText = e.target.innerText;
+            const selectedValue = e.target.dataset.value;
+
+            loc.innerHTML = `${selectedText} <i class="fa-solid fa-caret-down"></i>`;           
+            loc.dataset.value = selectedValue;     
+            dropdown.classList.remove("show");   
+
+            // clear filter input
+            input.value = "";
+            filterFunction(); // reset visible list
+        });
+    }
+    
+    window.addEventListener('click', function (e) {
+        if (!dropdown.contains(e.target) && !loc.contains(e.target)) {
+            dropdown.classList.remove("show");
+        }
+    });
+}
 
 
 window.addEventListener("scroll", function () {
