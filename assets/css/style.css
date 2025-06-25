@@ -79,7 +79,6 @@ main {
   border: 0;
 }
 
-
 .wrapper {
     display: flex;
 }
@@ -103,15 +102,6 @@ main {
     z-index: 5;
 }
 
-.b-2 {
-    border: inherit;
-    box-shadow: inherit;
-}
-
-.w-bg {
-    background: var(--quaternary-bg);
-}
-
 /* ----------------------------------------- nav */
 nav {
   background: var(--secondary-nav);
@@ -127,7 +117,7 @@ nav ul {
 }
 
 #menu {
-  font-size: 100%;
+  font-size: 80%;
   letter-spacing: 4px;
   padding: 0 40px;
 }
@@ -135,6 +125,7 @@ nav ul {
 #menu>li {
   margin-top: 1em;
   margin-bottom: 1em;
+  padding-bottom: 1em;
   border-bottom: 1px solid var(--quaternary-text);
 }
 
@@ -219,6 +210,7 @@ footer {
   width: 100%;
   padding: 1rem;
   font-size: 80%;
+  z-index: 9999;
 }
 
 footer ul {
@@ -251,15 +243,16 @@ footer a {
   background-image: url("../images/img01.jpg");
   background-position: top right;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
-  height: 100vh;
+  background-size: cover;
+  background-position: top 0 right 15%;
+  min-height: 100vh;
   z-index: 1;
 }
 
 #hero::before {
   content: "";
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   background: rgba(0, 0, 0, 0.3);
   pointer-events: none; /* so overlay doesn't block clicks */
   z-index: 2;
@@ -290,6 +283,7 @@ footer a {
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;
+    cursor: pointer;
 }
 
 .active-dot {
@@ -299,22 +293,53 @@ footer a {
 /* ----------------------------------------- intro */
 #intro {
     text-align: center;
-    padding: 5px;
-    border: 1px groove var(--secondary-bg);
-    margin: 1rem;
-    box-shadow: inset 0 0 6px var(--primary-text);
 }
 
+#intro h2,
 #intro p {
-    margin: 20px;
+    position: relative;
+    z-index: 5;
 }
 
-#intro .b-2 {
-    padding: 5px;
+#under-image {
+    position: relative;
+    background-image: url("../images/O9FG4D0.jpg");
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    z-index: 1;
+    padding: 1em;
 }
 
-#intro .b-2 .w-bg {
-    padding: 2rem;
+#under-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.9);
+  pointer-events: none; /* so overlay doesn't block clicks */
+  z-index: 2;
+}
+
+.intro-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+/* ----------------------------------------- service grid */
+
+
+.centre {
+  display: block;
+  margin-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 /* ----------------------------------------- service grid */
@@ -357,6 +382,73 @@ footer a {
   transform: scale(1);
 }
 
+
+/* ----------------------------------------- contact us */
+.bg-img {
+  /* The image used */
+  background-image: url("../images/property-themes.jpg");
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  display: flex;
+  justify-content: flex-end;
+
+  /* Control the height of the image */
+  margin-top: 75px;
+}
+
+.bg-img form {
+    border-radius: 4px;
+}
+
+/* Add styles to the form container */
+.container {
+  position: relative;
+  float: right;
+  margin: 20px;
+  max-width: 500px;
+  padding: 16px;
+  background-color: #f2f2f2;
+}
+
+form h2 {
+    margin: 0.5em 0 0.5em 0;
+}
+
+/* Style inputs with type="text", select elements and textareas */
+#name, #phone, #email, #message, #location {
+  width: 100%; /* Full width */
+  padding: 12px; /* Some padding */ 
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+  margin-top: 6px; /* Add a top margin */
+  margin-bottom: 16px; /* Bottom margin */
+  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
+form #message {
+    height: 150px;
+} 
+
+/* Style the submit button with a specific background color etc */
+form button {
+  background-color: var(--secondary-bg);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* When moving the mouse over the submit button, add a darker green color */
+form button:hover {
+  background-color: var(--primary-bg);
+}
+
+
 /* ----------------------------------------- media queries */
 /* ----------------------------------------- 768px */
 @media (min-width: 768px) {
@@ -376,6 +468,12 @@ footer a {
     overflow-y: auto;
   }
 
+   #hero {
+    background-position: center;
+    padding: 5rem 1rem;
+    height: auto;
+  }
+
   nav {
     display: flex;
     flex-direction: column;
@@ -383,7 +481,7 @@ footer a {
     position: relative;
     background: none;
     width: 100%;
-    right: 2rem;
+    right: 1.5rem;
     top: 0;
   }
 
@@ -432,6 +530,12 @@ footer a {
 
 }
 
+
+/* ----------------------------------------- 960px */
+@media (min-width: 960px) {
+    
+}
+
 /* ----------------------------------------- 1280px */
 @media (min-width: 1280px) {
     main {
@@ -446,12 +550,12 @@ footer a {
     width: 80%;
   }
 
-  #intro .b-2 .w-bg {
-    padding: 3rem 10rem;
-  }
-
   .copy-icon:hover {
     color: #fafafa;
+  }
+
+  .intro-wrapper {
+    max-width: 600px;
   }
 
    .services-grid {
