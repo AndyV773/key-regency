@@ -396,7 +396,7 @@ footer a {
   justify-content: flex-end;
 
   /* Control the height of the image */
-  margin-top: 75px;
+  padding-top: 75px;
 }
 
 .bg-img form {
