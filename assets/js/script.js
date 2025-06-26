@@ -1,3 +1,4 @@
+// nav bar
 const navToggle = document.getElementById("nav-toggle");
 const header = document.querySelector("header");
 const imageUrls = [
@@ -5,11 +6,16 @@ const imageUrls = [
   "assets/images/img02.jpg",
   "assets/images/img03.jpg"
 ];
-const backgroundImages = imageUrls.map(url => `url('${url}')`);
 
+// form dropdown
 const input = document.getElementById("myInput");
 const dropdown = document.getElementById("myDropdown");
 const loc = document.getElementById("location");
+
+// gallery lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const thumbnails = document.querySelectorAll('.popup-img');
 
 let slideIndex = 0;
 let loadedImages = 0;
@@ -19,16 +25,8 @@ let lastY = window.scrollY;
 
 
 function showSlideShow(n) {
+    const backgroundImages = imageUrls.map(url => `url('${url}')`);
     let dots = document.getElementsByClassName("dot");
-
-    if (typeof n === "number") {
-        slideIndex = n; // set to clicked dot
-    } else {
-        slideIndex++;
-        if (slideIndex >= backgroundImages.length) {
-            slideIndex = 0;
-        }
-    }
 
     // Remove active class from all dots
     for (let i = 0; i < dots.length; i++) {
@@ -38,6 +36,15 @@ function showSlideShow(n) {
     // Set background image and active dot
     hero.style.backgroundImage = backgroundImages[slideIndex];
     dots[slideIndex].className += " active-dot";
+
+    if (typeof n === "number") {
+        slideIndex = n; // set to clicked dot
+    } else {
+        slideIndex++;
+        if (slideIndex >= backgroundImages.length) {
+            slideIndex = 0;
+        }
+    }
 
     // Clear previous timeout to avoid overlap when manually changing slide
     if (timeoutId) {
@@ -114,10 +121,26 @@ if (dropdown) {
             filterFunction(); // reset visible list
         });
     }
-    
+
     window.addEventListener('click', function (e) {
         if (!dropdown.contains(e.target) && !loc.contains(e.target)) {
             dropdown.classList.remove("show");
+        }
+    });
+}
+
+if (lightbox) {
+    thumbnails.forEach((img) => {
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+        });
+    });
+
+    // Close when clicking outside the image
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            lightbox.classList.remove('active');
         }
     });
 }
