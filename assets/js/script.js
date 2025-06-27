@@ -1,5 +1,6 @@
 // nav bar
 const navToggle = document.getElementById("nav-toggle");
+const navToggleLabel = document.querySelector('.nav-toggle-label');
 const header = document.querySelector("header");
 const imageUrls = [
   "assets/images/img01.avif",
@@ -86,6 +87,16 @@ observer.observe(icon);
 
 function toggleNav() {
     header.classList.toggle("active", navToggle.checked);
+
+    if (navToggle.checked) {
+        navToggleLabel.innerHTML = `<i class="fa-solid fa-x"></i>`
+        if (window.innerWidth < 768) {
+            document.body.classList.add("no-scroll");  // disable background scroll
+        }
+    } else {
+        navToggleLabel.innerHTML = `<i class="fa-solid fa-bars"></i>`
+        document.body.classList.remove("no-scroll");  // enable scroll again
+    }
 }
 
 
