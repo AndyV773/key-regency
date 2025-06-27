@@ -2,9 +2,9 @@
 const navToggle = document.getElementById("nav-toggle");
 const header = document.querySelector("header");
 const imageUrls = [
-  "assets/images/img01.jpg",
-  "assets/images/img02.jpg",
-  "assets/images/img03.jpg"
+  "assets/images/img01.avif",
+  "assets/images/img02.avif",
+  "assets/images/img03.avif"
 ];
 
 // form dropdown
