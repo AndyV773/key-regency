@@ -15,12 +15,12 @@
   --quaternary-bg: #fafafa;
   --primary-text: #222;
   --secondary-text: rgba(255, 255, 255, 0.3);
-  --tertiary-text: #CFB53B;
+  --tertiary-text: #cfb53b;
   --quaternary-text: #fafafa;
   --anchor:  rgba(156, 173, 70, 0.9);
   --primary-nav: #666;
   --secondary-nav: #666;
-  --primary-gradient: linear-gradient(to right, #012A4A, #A9D6E5);
+  --primary-gradient: linear-gradient(to right, #222, #ccc);
   --secondary-gradient: linear-gradient(to right, #012A4A, #A9D6E5);
   --primary-fade: rgba(44, 125, 160, 0.9);
   --secondary-fade: rgba(44, 125, 160, 0.9);
@@ -260,13 +260,24 @@ footer a {
   z-index: 1;
 }
 
+#fade-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: top 0 right 15%;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 2s ease-in-out; /*match JS timeout duration*/
+    z-index: 2; /* Below text but above base background */
+}
+
 #hero::before {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.3);
   pointer-events: none; /* so overlay doesn't block clicks */
-  z-index: 2;
+  z-index: 3;
 }
 
 #hero h2 {
@@ -280,12 +291,16 @@ footer a {
 #hero h2,
 #hero .button {
   opacity: 0;
-  animation: fade-in-up 1s ease-out forwards;
+  animation: fade-in-up 4s ease-out forwards;
+}
+
+#hero h2 {
+    animation-delay: 0.5s;
 }
 
 /* Delay the button slightly */
 #hero .button {
-  animation-delay: 0.5s;
+  animation-delay: 2s;
 }
 
 /* The dots/bullets/indicators */
@@ -294,7 +309,7 @@ footer a {
     left: 50%;
     transform: translateX(-50%);
     bottom: 20px;
-    z-index: 5;
+    z-index: 4;
 }
 
 .dot {
@@ -305,7 +320,7 @@ footer a {
     border: 1px solid #bbb;
     border-radius: 50%;
     display: inline-block;
-    transition: background-color 0.6s ease;
+    transition: background-color 2s ease; /*match JS timeout duration*/
     cursor: pointer;
 }
 
@@ -463,8 +478,15 @@ footer a {
 
 /* ----------------------------------------- contact us */
 #contact-h1 {
-    margin-top: 6rem;
-    margin-left: 2rem;
+    margin: 6rem 0 0 2rem;
+}
+
+#contact-h1 + hr {
+    max-width: 100%;
+    padding: 2px;
+    background: var(--primary-gradient);
+    margin: 0 2rem 2rem 2rem;
+    border: none;
 }
 
 #contact-intro {
@@ -736,35 +758,39 @@ div.desc {
     overflow-y: auto;
   }
 
-   #hero {
-    background-position: center;
-    padding: 5rem 1rem;
-    height: auto;
-  }
-
   nav {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    position: relative;
-    background: none;
-    width: 100%;
-    right: 1.5rem;
-    top: 0;
-  }
-
-  .nav-toggle-label {
-    display: none;
-  }
-
-  #menu {
-    padding: 0 0 0 40px;
-    flex-grow: 1;
-  }
-
-  #hero {
-    background-attachment: fixed;
-  }
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      position: relative;
+      background: none;
+      width: 100%;
+      right: 1.5rem;
+      top: 0;
+    }
+    
+    .nav-toggle-label {
+        display: none;
+    }
+    
+    #menu {
+        padding: 0 0 0 40px;
+        flex-grow: 1;
+    }
+    
+    #hero {
+     background-attachment: fixed;
+     background-position: center;
+     padding: 5rem 1rem;
+     height: auto;
+   }
+    
+   #fade-layer {
+     background-attachment: fixed;
+     background-position: center;
+     padding: 5rem 1rem;
+     height: auto;
+   }
 
   footer {
     width: 70%;

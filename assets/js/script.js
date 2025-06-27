@@ -26,33 +26,38 @@ let lastY = window.scrollY;
 
 function showSlideShow(n) {
     const backgroundImages = imageUrls.map(url => `url('${url}')`);
-    let dots = document.getElementsByClassName("dot");
-
-    // Remove active class from all dots
-    for (let i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active-dot", "");
-    }
-
-    // Set background image and active dot
-    hero.style.backgroundImage = backgroundImages[slideIndex];
-    dots[slideIndex].className += " active-dot";
+    const fadeLayer = document.getElementById("fade-layer");
+    const dots = document.getElementsByClassName("dot");
 
     if (typeof n === "number") {
         slideIndex = n; // set to clicked dot
-    } else {
-        slideIndex++;
-        if (slideIndex >= backgroundImages.length) {
-            slideIndex = 0;
-        }
+    }
+    
+    fadeLayer.style.backgroundImage = backgroundImages[slideIndex];
+    fadeLayer.style.opacity = 1;
+    
+    // Remove active class from all dots
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].classList.remove("active-dot");
     }
 
-    // Clear previous timeout to avoid overlap when manually changing slide
-    if (timeoutId) {
-        clearTimeout(timeoutId);
-    }
+    setTimeout(() => {
+        document.getElementById("hero").style.backgroundImage = backgroundImages[slideIndex];
+        fadeLayer.style.opacity = 0;
 
-    // Auto change slide every 3 seconds
-    timeoutId = setTimeout(showSlideShow, 3000);
+        // Increment *after* showing current image
+        slideIndex = (slideIndex + 1) % backgroundImages.length;
+
+        // Schedule next
+        timeoutId = setTimeout(showSlideShow, 5000);
+
+    }, 2000); // match CSS transition duration
+
+    // Update dot state
+    dots[slideIndex].classList.add("active-dot");
+
+    // Clear previous timeout before continuing
+    if (timeoutId) clearTimeout(timeoutId);
 }
 
 
